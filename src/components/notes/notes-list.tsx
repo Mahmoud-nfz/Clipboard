@@ -25,7 +25,7 @@ const NotesList = () => {
   return (
     <div className="flex flex-col">
       {notes.map((note) => (
-        <Link href={`/notes/${note.id}`} key={note.id}>
+        <Link href={`/${note.id}`} key={note.id}>
           <div className="p-4 bg-gray-100 rounded-lg my-2 cursor-pointer">
             <h2 className="text-lg font-bold">{note.title}</h2>
             <p className="text-gray-700">{note.content}</p>
