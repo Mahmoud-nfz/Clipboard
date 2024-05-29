@@ -1,10 +1,12 @@
+import Link from "next/link";
+
 export const MainActions = () => {
   return (
     <div className="my-4">
       <div>
-        <button className="rounded-xl bg-yellow-300 p-2 px-3">
+        <Link href={"/create"} className="rounded-xl bg-yellow-300 p-2 px-3">
           + Create a new note
-        </button>
+        </Link>
       </div>
       <div className="mt-4">
         <input

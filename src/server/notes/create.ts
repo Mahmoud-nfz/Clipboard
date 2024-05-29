@@ -1,20 +1,31 @@
 "use server";
 
-export const createNote = async (formData: FormData) => {
-    if(formData.get("title") == "" && formData.get("content") == "") {
-        throw new Error("Title and content are required to create a note");
-    }
+import { createNoteSchema } from "@/types/schemas/create-note-schema";
 
-    const title = formData.get("title") as string;
-    const content = formData.get("content") as string;
+export const createNote = async (prevState: any, formData: FormData) => {
+  const validatedFields = createNoteSchema.safeParse({
+    title: formData.get("title"),
+    content: formData.get("content"),
+  });
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    console.log(`Creating note with title: ${title} and content: ${content}`);
+  if (!validatedFields.success) {
     return {
-        id: 1,
-        title,
-        content,
-        createdAt: new Date(),
+      errors: validatedFields.error.flatten().fieldErrors,
     };
-}
+  }
+
+  const { title, content } = validatedFields.data;
+
+  await new Promise((resolve) => setTimeout(resolve, 300));
+
+  console.log(`Creating note with title: ${title} and content: ${content}`);
+  return {
+    message: "Note created successfully",
+    data: {
+      id: 1,
+      title,
+      content,
+      createdAt: new Date(),
+    },
+  };
+};

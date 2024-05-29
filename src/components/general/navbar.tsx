@@ -16,9 +16,9 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="space-x-3">
-        <Link href="/about">List</Link>
+        <Link href="/">List</Link>
         <Link href="/about">About</Link>
-        <Link href="/about" className="rounded-xl bg-yellow-300 p-2 px-3">+ Create</Link>
+        <Link href="/create" className="rounded-xl bg-yellow-300 p-2 px-3">+ Create</Link>
       </div>
     </nav>
   );
