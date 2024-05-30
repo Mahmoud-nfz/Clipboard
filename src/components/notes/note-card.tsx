@@ -19,6 +19,7 @@ const NoteCard = async ({ id }: { id: string }) => {
 
       <div className="p-4 bg-gray-100 rounded-lg my-2 whitespace-pre">
         <h2 className="text-lg font-bold">{note.title}</h2>
+            <p className="text-gray-500 text-sm">ID: {note.id}</p>
         <p className="text-gray-500 text-sm">
           {note.createdAt.toLocaleString()}
         </p>
