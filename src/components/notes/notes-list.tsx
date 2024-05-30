@@ -1,30 +1,21 @@
+import { Note } from "@/types/note";
+import { kv } from "@vercel/kv";
 import Link from "next/link";
 
-const notes = [
-  {
-    id: 1,
-    title: "My first note",
-    content: "This is my first note. I'm so excited to use Clipboard!",
-    createdAt: new Date(),
-  },
-  {
-    id: 2,
-    title: "My second note",
-    content: "This is my second note. I'm so excited to use Clipboard!",
-    createdAt: new Date(),
-  },
-  {
-    id: 3,
-    title: "My third note",
-    content: "This is my third note. I'm so excited to use Clipboard!",
-    createdAt: new Date(),
-  },
-];
 
-const NotesList = () => {
+const NotesList = async () => {  
+  const keys = await kv.keys("p*");
+  
+  const notes: Note[] = await Promise.all(
+    keys.map(async (key) => {
+      const note = await kv.get(key) as Note;
+      return note;
+    })
+  );
+
   return (
     <div className="flex flex-col">
-      {notes.map((note) => (
+      {notes.slice(0,10).map((note) => (
         <Link href={`/${note.id}`} key={note.id}>
           <div className="p-4 bg-gray-100 rounded-lg my-2 cursor-pointer">
             <h2 className="text-lg font-bold">{note.title}</h2>

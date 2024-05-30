@@ -1,27 +1,26 @@
 import Link from "next/link";
+import { kv } from "@vercel/kv";
 import { Note } from "@/types/note";
+import { notFound } from "next/navigation";
 
-const note: Note = {
-  id: 1,
-  title: "My first note",
-  content: "This is my first note. I'm so excited to use Clipboard!",
-  createdAt: new Date(),
-};
+const NoteCard = async ({ id }: { id: string }) => {
+  const note: Note | null = await kv.get(id);
 
-const NoteCard = ({ id }: { id: string }) => {
+  if (!note) {
+    notFound();
+  }
+
   return (
     <div className="flex flex-col">
       <h1 className="text-4xl font-bold">{note.title}</h1>
 
-      <Link href={`/notes/${note.id}`} key={note.id}>
-        <div className="p-4 bg-gray-100 rounded-lg my-2 cursor-pointer whitespace-pre">
-          <h2 className="text-lg font-bold">{note.title}</h2>
-          <p className="text-gray-500 text-sm">
-            {note.createdAt.toLocaleString()}
-          </p>
-          <p className="text-gray-700">{note.content}</p>
-        </div>
-      </Link>
+      <div className="p-4 bg-gray-100 rounded-lg my-2 whitespace-pre">
+        <h2 className="text-lg font-bold">{note.title}</h2>
+        <p className="text-gray-500 text-sm">
+          {note.createdAt.toLocaleString()}
+        </p>
+        <p className="text-gray-700">{note.content}</p>
+      </div>
     </div>
   );
 };
