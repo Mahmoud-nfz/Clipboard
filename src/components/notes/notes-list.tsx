@@ -18,7 +18,7 @@ const NotesList = async () => {
         <Link href={`/${note.id}`} key={note.id}>
           <div className="p-4 bg-gray-100 rounded-lg my-2 cursor-pointer">
             <h2 className="text-lg font-bold">{note.title}</h2>
-            <p className="text-gray-700">{note.content}</p>
+            <p className="text-gray-700">{note.content.slice(0,300)}</p>
             <p className="text-gray-500 text-sm">ID: {note.id}</p>
             <p className="text-gray-500 text-sm">
               {note.createdAt.toLocaleString()}
