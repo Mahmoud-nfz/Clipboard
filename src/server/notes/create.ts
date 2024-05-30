@@ -3,6 +3,7 @@
 import { kv } from "@vercel/kv";
 import { createNoteSchema } from "@/types/schemas/create-note-schema";
 import { generateRandomId } from "@/utils/random";
+import { revalidatePath } from "next/cache";
 
 export const createNote = async (prevState: any, formData: FormData) => {
   const validatedFields = createNoteSchema.safeParse({
@@ -19,8 +20,6 @@ export const createNote = async (prevState: any, formData: FormData) => {
 
   const { title, content, isPrivate } = validatedFields.data;
 
-  await new Promise((resolve) => setTimeout(resolve, 300));
-
   console.log(`Creating note with title: ${title} and content: ${content}`);
 
   const id = generateRandomId(isPrivate ?? false);
@@ -32,7 +31,9 @@ export const createNote = async (prevState: any, formData: FormData) => {
     createdAt: new Date(),
   };
 
-  const resp = await kv.set(id, note);
+  await kv.set(id, note);
+
+  revalidatePath("/", "page");
 
   return {
     message: "Note created successfully",

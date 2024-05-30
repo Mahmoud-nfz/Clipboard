@@ -2,9 +2,12 @@ import Link from "next/link";
 import { kv } from "@vercel/kv";
 import { Note } from "@/types/note";
 import { notFound } from "next/navigation";
+import { deleteNote } from "@/server/notes/delete";
 
 const NoteCard = async ({ id }: { id: string }) => {
   const note: Note | null = await kv.get(id);
+
+  const deleteNoteAction = deleteNote.bind(null, id);
 
   if (!note) {
     notFound();
@@ -21,6 +24,10 @@ const NoteCard = async ({ id }: { id: string }) => {
         </p>
         <p className="text-gray-700">{note.content}</p>
       </div>
+
+      <form className="flex flex-col" action={deleteNoteAction}>
+        <button className="text-red-500">Click here to delete this note</button>
+      </form>
     </div>
   );
 };
