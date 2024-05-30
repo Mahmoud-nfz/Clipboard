@@ -27,10 +27,10 @@ export const MainActions = () => {
           + Create a new note
         </Link>
       </div>
-      <div className="mt-4 space-x-1">
+      <div className="mt-4">
         <input
           type="text"
-          className="rounded-xl p-2 px-3 border-gray-300 border-2"
+          className="rounded-xl p-2 px-3 border-gray-300 border-2 mr-1 mb-2"
           placeholder="Enter a note ID to see it..."
           value={noteId}
           onChange={(e) => setNoteId(e.target.value)}
