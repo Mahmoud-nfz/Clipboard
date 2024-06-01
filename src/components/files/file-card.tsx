@@ -30,7 +30,7 @@ const FileCard = async ({ id }: { id: string }) => {
         </div>
         <Link
           href={file.downloadUrl}
-          className="text-white mt-5 bg-slate-400 rounded-lg px-4 py-2 mx-4"
+          className="bg-[#00BBF9] text-white mt-5 rounded-lg px-4 py-2 mx-4"
         >
           Click here to download this file
         </Link>
