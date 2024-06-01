@@ -4,6 +4,8 @@ import { kv } from "@vercel/kv";
 import { createNoteSchema } from "@/types/schemas/create-note-schema";
 import { generateRandomId } from "@/utils/random";
 import { revalidatePath } from "next/cache";
+import { IdPrefixes } from "@/constants";
+import { Note } from "@/types/note";
 
 export const createNote = async (prevState: any, formData: FormData) => {
   const validatedFields = createNoteSchema.safeParse({
@@ -22,9 +24,9 @@ export const createNote = async (prevState: any, formData: FormData) => {
 
   console.log(`Creating note with title: ${title} and content: ${content}`);
 
-  const id = generateRandomId(isPrivate ?? false);
+  const id = generateRandomId(isPrivate ? IdPrefixes.PRIVATE_NOTE : IdPrefixes.PUBLIC_NOTE);
 
-  const note = {
+  const note: Note = {
     id,
     title,
     content,

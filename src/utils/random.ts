@@ -1,6 +1,7 @@
+import { IdPrefixes } from "@/constants";
 import { randomBytes } from "crypto";
 
-export function generateRandomId(isPrivate: boolean = false): string {
+export function generateRandomId(prefix: IdPrefixes): string {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const charactersLength = characters.length;
@@ -15,9 +16,5 @@ export function generateRandomId(isPrivate: boolean = false): string {
     result += characters[index];
   }
 
-  if (isPrivate) {
-    return `_${result}`;
-  }
-
-  return `p${result}`;
+  return `${prefix}${result}`;
 }

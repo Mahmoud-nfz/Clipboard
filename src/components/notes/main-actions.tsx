@@ -22,9 +22,12 @@ export const MainActions = () => {
 
   return (
     <div className="my-4">
-      <div>
-        <Link href="/create" className="rounded-xl bg-yellow-300 p-2 px-3">
+      <div className="flex flex-wrap">
+        <Link href="/create" className="rounded-xl bg-yellow-300 p-2 px-3 m-1">
           + Create a new note
+        </Link>
+        <Link href="/upload" className="rounded-xl bg-pink-300 p-2 px-3 m-1">
+          + Upload a file
         </Link>
       </div>
       <div className="mt-4">
